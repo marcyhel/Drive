@@ -1,11 +1,11 @@
 const Sequelize = require('sequelize');
-
-const sequelze = new Sequelize('serv-file', 'root', '0800', {
+const config = require('../config');
+const sequelze = new Sequelize(config.database.name, config.database.username, config.database.password, {
     dialect: 'mysql',
-    host: '127.0.0.1',
-    port: 3306
+    host: config.database.host,
+    port: config.database.port
 })
-sequelze.sync({}).then((e) => {
+sequelze.sync().then((e) => {
     console.log('Sincronizado')
 });
 

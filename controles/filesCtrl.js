@@ -5,7 +5,7 @@ var resolutionOs = {
     getAll: async function (req, res, next) {
 
         try {
-            var response = await Files.findAll({ where: req.params });
+            var response = await Files.findAll({ where: req.body });
             res.json(response);
         } catch (err) {
             next(err)
@@ -13,7 +13,7 @@ var resolutionOs = {
     },
     get: async function (req, res, next) {
         try {
-            
+
         } catch (err) {
             next(err)
         }
@@ -21,22 +21,22 @@ var resolutionOs = {
     create: async function (req, res, next) {
         try {
 
-            const { nome } = req.body;
+            // const { nome } = req.body;
             console.log(req.body)
             const file = req.files;
             var arquivo
-            for(let files of file){
-                console.log(files )
+            for (let files of file) {
+                console.log(files)
                 arquivo = new Files({
-                    nome:files.originalname.split('.')[0],
+                    nome: files.originalname.split('.')[0],
                     path: files.path,
-                    id_path: 1,
-                    type:files.mimetype
+                    id_path: req.body.id,
+                    type: files.mimetype
                 });
-    
+
                 await arquivo.save()
             }
-           
+
             res.json({ arquivo, msg: 'Imagem salva' })
 
         } catch (err) {
